@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfaouzi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 15:33:50 by sfaouzi           #+#    #+#             */
-/*   Updated: 2024/11/26 15:33:53 by sfaouzi          ###   ########.fr       */
+/*   Created: 2024/11/27 15:49:40 by sfaouzi           #+#    #+#             */
+/*   Updated: 2024/11/27 15:49:43 by sfaouzi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*after_newline(char **str, int i)
 {
@@ -47,29 +47,27 @@ int	search(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*rest;
+	static char	*rest[1024];
 	char		buff[BUFFER_SIZE + 1];
 	char		*li;
 	int			len;
 	int			i;
 
-	if (rest == NULL)
-		rest = ft_strdup("");
 	if (fd < 0 || BUFFER_SIZE == 0)
 		return (NULL);
 	len = read(fd, buff, BUFFER_SIZE);
 	while (len >= 0)
 	{
 		buff[len] = '\0';
-		rest = ft_strjoin(rest, buff);
-		i = search(rest);
+		rest[fd] = ft_strjoin(rest[fd], buff);
+		i = search(rest[fd]);
 		if (i != -2)
-			return (before_newline(&li, &rest, i));
-		if (len == 0 && rest[0] == '\0')
+			return (before_newline(&li, &rest[fd], i));
+		if (len == 0 && rest[fd][0] == '\0')
 			break ;
 		if (len == 0)
-			return (after_newline(&rest, 0));
+			return (after_newline(&rest[fd], 0));
 		len = read(fd, buff, BUFFER_SIZE);
 	}
-	return (free(rest), rest = NULL, NULL);
+	return (free(rest[fd]), rest[fd] = NULL, NULL);
 }

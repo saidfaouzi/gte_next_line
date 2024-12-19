@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfaouzi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 15:34:04 by sfaouzi           #+#    #+#             */
-/*   Updated: 2024/11/26 15:34:06 by sfaouzi          ###   ########.fr       */
+/*   Created: 2024/11/27 14:15:22 by sfaouzi           #+#    #+#             */
+/*   Updated: 2024/11/27 14:15:24 by sfaouzi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -37,6 +37,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	lens1;
 
 	i = 0;
+	if (s1 == NULL)
+		s1 = ft_strdup("");
 	lens1 = ft_strlen(s1) + ft_strlen(s2);
 	result = malloc(lens1 + 1);
 	if (result == NULL)
